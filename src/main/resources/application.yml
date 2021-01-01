@@ -1,0 +1,7 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/storiesdb
+server:
+  servlet:
+    context-path: /api
