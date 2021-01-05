@@ -2,6 +2,8 @@
 
 **Stories** is a Medium clone demonstrating various software design techniques like CQRS, module based testing, event driven architecture and microservices.
 
+Live demo: http://stories-frontend.s3-website.eu-west-2.amazonaws.com
+
 ### Features backlog
 
 - [x] Publishing stories
