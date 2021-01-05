@@ -3,7 +3,6 @@ package com.github.mszarlinski.stories.publishing;
 import com.github.mszarlinski.stories.AcceptanceTests;
 import com.github.mszarlinski.stories.publishing.ui.GetStoriesForPublisherResponse;
 import com.github.mszarlinski.stories.publishing.ui.PublishNewStoryRequest;
-import com.github.mszarlinski.stories.publishing.ui.PublishedStoryResponse;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,6 +26,10 @@ class PublishingAcceptanceTests extends AcceptanceTests {
         var publisherStoriesResponse = client.getForObject("/publisher/stories", GetStoriesForPublisherResponse.class);
 
         // then
-        assertThat(publisherStoriesResponse.stories()).map(PublishedStoryResponse::title).contains(title);
+        assertThat(publisherStoriesResponse.getStories())
+                .singleElement()
+                .hasNoNullFieldsOrProperties()
+                .hasFieldOrProperty("id")
+                .hasFieldOrPropertyWithValue("title", title);
     }
 }

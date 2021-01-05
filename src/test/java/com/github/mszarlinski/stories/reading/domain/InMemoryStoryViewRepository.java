@@ -19,7 +19,7 @@ public class InMemoryStoryViewRepository implements StoryViewRepository {
     @Override
     public Optional<StoryView> findById(String id) {
         return db.stream()
-                .filter(s -> id.equals(s.id()))
+                .filter(s -> id.equals(s.getId()))
                 .findFirst();
     }
 }

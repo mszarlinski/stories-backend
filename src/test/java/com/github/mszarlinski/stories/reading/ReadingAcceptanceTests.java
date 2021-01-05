@@ -27,16 +27,17 @@ class ReadingAcceptanceTests extends AcceptanceTests {
 
         // then
         assertThat(storiesResponse.getStatusCode()).isEqualTo(OK);
-        assertThat(storiesResponse.getBody().stories())
+        assertThat(storiesResponse.getBody().getStories())
                 .singleElement()
+                .hasNoNullFieldsOrProperties()
                 .hasFieldOrPropertyWithValue("title", story.getTitle())
-                .hasFieldOrPropertyWithValue("author", "%s %s".formatted(FAKE_USER.name(), FAKE_USER.lastName()))
+                .hasFieldOrPropertyWithValue("author", String.format("%s %s", FAKE_USER.getName(), FAKE_USER.getLastName()))
                 .hasFieldOrPropertyWithValue("publishedDate", clock.instant());
     }
 
     private String storyIsPublished(TestStory story) {
         return client.postForObject("/stories", new PublishNewStoryRequest(story.getTitle(), story.getContent()), PublishNewStoryResponse.class)
-                .storyId();
+                .getStoryId();
     }
 
     @Test
@@ -51,10 +52,11 @@ class ReadingAcceptanceTests extends AcceptanceTests {
         // then
         assertThat(storyResponse.getStatusCode()).isEqualTo(OK);
         assertThat(storyResponse.getBody())
+                .hasNoNullFieldsOrProperties()
                 .hasFieldOrPropertyWithValue("title", story.getTitle())
                 .hasFieldOrPropertyWithValue("content", story.getContent())
                 .hasFieldOrPropertyWithValue("publishedDate", clock.instant())
-                .hasFieldOrPropertyWithValue("author", "%s %s".formatted(FAKE_USER.name(), FAKE_USER.lastName()));
+                .hasFieldOrPropertyWithValue("author", String.format("%s %s", FAKE_USER.getName(), FAKE_USER.getLastName()));
     }
 
     @Test

@@ -18,7 +18,7 @@ class PublisherController {
     @ResponseStatus(CREATED)
     @PostMapping("/stories")
     PublishNewStoryResponse publishNewStory(@RequestBody PublishNewStoryRequest request) {
-        var storyId = storyPublisherFacade.publish(request.title(), request.content(), FakeAuthor.ID);
+        var storyId = storyPublisherFacade.publish(request.getTitle(), request.getContent(), FakeAuthor.ID);
         return new PublishNewStoryResponse(storyId.value());
     }
 

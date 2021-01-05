@@ -19,6 +19,6 @@ class StoryViewController {
     @GetMapping("/stories/{storyId}")
     ResponseEntity<StoryViewResponse> getStoryById(@PathVariable String storyId) {
         return ResponseEntity.of(storyReaderFacade.findStoryById(StoryId.of(storyId))
-                .map(s -> new StoryViewResponse(s.title(), s.content(), s.author(), s.publishedDate())));
+                .map(s -> new StoryViewResponse(s.getTitle(), s.getContent(), s.getAuthor(), s.getPublishedDate())));
     }
 }

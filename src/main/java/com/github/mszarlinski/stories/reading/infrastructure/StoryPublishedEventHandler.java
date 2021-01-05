@@ -18,6 +18,6 @@ class StoryPublishedEventHandler {
     @Async //TODO thread pool
     @EventListener
     public void onStoryPublished(StoryPublished event) {
-        storyReaderFacade.saveStoryInReadModels(event.storyId(), event.title(), event.content(), event.authorId(), event.publishedDate());
+        storyReaderFacade.saveStoryInReadModels(event.getStoryId(), event.getTitle(), event.getContent(), event.getAuthorId(), event.getPublishedDate());
     }
 }

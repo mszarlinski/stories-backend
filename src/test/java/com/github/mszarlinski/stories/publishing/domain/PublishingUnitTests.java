@@ -34,6 +34,7 @@ class PublishingUnitTests {
         var stories = facade.getStories(story.getAuthorId());
         assertThat(stories)
                 .singleElement()
+                .hasNoNullFieldsOrProperties()
                 .hasFieldOrProperty("id")
                 .hasFieldOrPropertyWithValue("title", story.getTitle())
                 .hasFieldOrPropertyWithValue("content", story.getContent())
@@ -52,6 +53,7 @@ class PublishingUnitTests {
         // then
         assertThat(eventsPublisher.events())
                 .singleElement()
+                .hasNoNullFieldsOrProperties()
                 .hasFieldOrPropertyWithValue("storyId", storyId)
                 .hasFieldOrPropertyWithValue("title", story.getTitle())
                 .hasFieldOrPropertyWithValue("content", story.getContent())
