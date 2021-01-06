@@ -38,6 +38,8 @@ class ReadingUnitTests {
         // then
         assertThat(stories)
                 .singleElement()
+                .hasNoNullFieldsOrProperties()
+                .hasFieldOrProperty("id")
                 .hasFieldOrPropertyWithValue("title", story.getTitle())
                 .hasFieldOrPropertyWithValue("author", "Janusz Kowalski")
                 .hasFieldOrPropertyWithValue("publishedDate", story.getPublishedDate());

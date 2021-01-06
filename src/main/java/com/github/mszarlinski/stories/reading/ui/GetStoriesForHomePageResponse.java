@@ -20,16 +20,23 @@ public class GetStoriesForHomePageResponse {
 
 class HomePageStoryViewResponse {
 
+    private final String id;
     private final String title;
     private final String author;
     private final Instant publishedDate;
 
-    public HomePageStoryViewResponse(@JsonProperty("title") String title,
+    public HomePageStoryViewResponse(@JsonProperty("id") String id,
+                                     @JsonProperty("title") String title,
                                      @JsonProperty("author") String author,
                                      @JsonProperty("publishedDate") Instant publishedDate) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.publishedDate = publishedDate;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {

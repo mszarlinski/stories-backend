@@ -20,7 +20,7 @@ class HomePageController {
         return new GetStoriesForHomePageResponse(
                 storyReaderFacade.getStoriesForHomePage()
                         .stream()
-                        .map(s -> new HomePageStoryViewResponse(s.getTitle(), s.getAuthor(), s.getPublishedDate()))
+                        .map(s -> new HomePageStoryViewResponse(s.getId(), s.getTitle(), s.getAuthor(), s.getPublishedDate()))
                         .collect(toList()));
     }
 }

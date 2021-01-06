@@ -20,7 +20,7 @@ class ReadingAcceptanceTests extends AcceptanceTests {
     void shouldReturnStoriesForHomePage() {
         // given
         var story = story().build();
-        storyIsPublished(story);
+        var storyId = storyIsPublished(story);
 
         // when
         var storiesResponse = client.getForEntity("/home/stories", GetStoriesForHomePageResponse.class);
@@ -30,6 +30,7 @@ class ReadingAcceptanceTests extends AcceptanceTests {
         assertThat(storiesResponse.getBody().getStories())
                 .singleElement()
                 .hasNoNullFieldsOrProperties()
+                .hasFieldOrPropertyWithValue("id", storyId)
                 .hasFieldOrPropertyWithValue("title", story.getTitle())
                 .hasFieldOrPropertyWithValue("author", String.format("%s %s", FAKE_USER.getName(), FAKE_USER.getLastName()))
                 .hasFieldOrPropertyWithValue("publishedDate", clock.instant());

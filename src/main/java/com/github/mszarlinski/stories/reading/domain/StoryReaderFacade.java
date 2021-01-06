@@ -33,7 +33,7 @@ public class StoryReaderFacade {
 
     public void saveStoryInReadModels(StoryId storyId, String title, String content, String authorId, Instant publishedDate) {
         var author = accountModuleFacade.getUserById(authorId).orElseThrow();
-        readerHomePageReadModel.save(title, author, publishedDate);
+        readerHomePageReadModel.save(storyId, title, author, publishedDate);
         storyViewReadModel.save(storyId, title, content, author, publishedDate);
     }
 
