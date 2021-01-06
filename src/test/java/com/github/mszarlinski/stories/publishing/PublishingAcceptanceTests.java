@@ -30,6 +30,7 @@ class PublishingAcceptanceTests extends AcceptanceTests {
                 .singleElement()
                 .hasNoNullFieldsOrProperties()
                 .hasFieldOrProperty("id")
-                .hasFieldOrPropertyWithValue("title", title);
+                .hasFieldOrPropertyWithValue("title", title)
+                .hasFieldOrPropertyWithValue("publishedDate", clock.instant());
     }
 }

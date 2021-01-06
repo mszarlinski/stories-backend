@@ -23,7 +23,8 @@ class MyStoriesController {
                         .stream()
                         .map(s -> new PublishedStoryResponse(
                                 s.getId().value(),
-                                s.getTitle())
+                                s.getTitle(),
+                                s.getPublishedDate())
                         )
                         .collect(toList())
         );
