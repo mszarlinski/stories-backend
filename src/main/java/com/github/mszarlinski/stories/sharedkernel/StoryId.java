@@ -1,4 +1,4 @@
-package com.github.mszarlinski.stories.common;
+package com.github.mszarlinski.stories.sharedkernel;
 
 import org.springframework.util.Assert;
 

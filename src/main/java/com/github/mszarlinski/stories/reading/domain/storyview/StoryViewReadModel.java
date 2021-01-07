@@ -1,7 +1,7 @@
 package com.github.mszarlinski.stories.reading.domain.storyview;
 
 import com.github.mszarlinski.stories.account.UserDto;
-import com.github.mszarlinski.stories.common.StoryId;
+import com.github.mszarlinski.stories.sharedkernel.StoryId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;

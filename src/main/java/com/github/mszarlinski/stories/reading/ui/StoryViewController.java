@@ -1,7 +1,7 @@
 package com.github.mszarlinski.stories.reading.ui;
 
-import com.github.mszarlinski.stories.common.StoryId;
 import com.github.mszarlinski.stories.reading.domain.StoryReaderFacade;
+import com.github.mszarlinski.stories.sharedkernel.StoryId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

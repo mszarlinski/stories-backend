@@ -1,6 +1,6 @@
 package com.github.mszarlinski.stories.publishing.domain;
 
-import com.github.mszarlinski.stories.common.StoryId;
+import com.github.mszarlinski.stories.sharedkernel.StoryId;
 import com.github.mszarlinski.stories.sharedkernel.event.DomainEvent;
 
 import java.time.Instant;

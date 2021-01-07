@@ -1,8 +1,8 @@
 package com.github.mszarlinski.stories.publishing.application;
 
-import com.github.mszarlinski.stories.common.StoryId;
 import com.github.mszarlinski.stories.publishing.domain.PublishedStory;
 import com.github.mszarlinski.stories.publishing.domain.PublishedStoryRepository;
+import com.github.mszarlinski.stories.sharedkernel.StoryId;
 import com.github.mszarlinski.stories.sharedkernel.event.EventsPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;

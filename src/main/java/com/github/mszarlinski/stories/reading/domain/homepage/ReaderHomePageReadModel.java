@@ -1,7 +1,7 @@
 package com.github.mszarlinski.stories.reading.domain.homepage;
 
 import com.github.mszarlinski.stories.account.UserDto;
-import com.github.mszarlinski.stories.common.StoryId;
+import com.github.mszarlinski.stories.sharedkernel.StoryId;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
