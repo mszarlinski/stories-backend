@@ -1,4 +1,4 @@
-package com.github.mszarlinski.stories.reading.domain.storyview;
+package com.github.mszarlinski.stories.reading.domain;
 
 import java.time.Instant;
 

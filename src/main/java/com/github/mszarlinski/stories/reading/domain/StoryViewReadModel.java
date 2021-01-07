@@ -1,21 +1,17 @@
-package com.github.mszarlinski.stories.reading.domain.storyview;
+package com.github.mszarlinski.stories.reading.domain;
 
 import com.github.mszarlinski.stories.account.UserDto;
 import com.github.mszarlinski.stories.sharedkernel.StoryId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 import static com.github.mszarlinski.stories.reading.domain.UserExt.fullName;
 
 @Component
 public class StoryViewReadModel {
-
-    @Autowired
-    MongoTemplate mongo;
 
     private final StoryViewRepository storyViewRepository;
 
@@ -25,6 +21,10 @@ public class StoryViewReadModel {
 
     public Optional<StoryView> findById(StoryId storyId) {
         return storyViewRepository.findById(storyId.value());
+    }
+
+    public List<StoryView> getStoriesForHomePage() {
+        return storyViewRepository.findAll(); //TODO: paging & sorting
     }
 
     public void save(StoryId storyId, String title, String content, UserDto author, Instant publishedDate) {

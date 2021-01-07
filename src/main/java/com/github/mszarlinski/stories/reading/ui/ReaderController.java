@@ -7,13 +7,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import static java.util.stream.Collectors.toList;
+
 @RestController
-class StoryViewController {
+class ReaderController {
 
     private final StoryReaderFacade storyReaderFacade;
 
-    StoryViewController(StoryReaderFacade storyReaderFacade) {
+    ReaderController(StoryReaderFacade storyReaderFacade) {
         this.storyReaderFacade = storyReaderFacade;
+    }
+
+    @GetMapping("/home/stories")
+    GetStoriesForHomePageResponse getStoriesForHomePageResponse() {
+        return new GetStoriesForHomePageResponse(
+                storyReaderFacade.getStoriesForHomePage()
+                        .stream()
+                        .map(s -> new HomePageStoryViewResponse(s.getId(), s.getTitle(), s.getAuthor(), s.getPublishedDate()))
+                        .collect(toList()));
     }
 
     @GetMapping("/stories/{storyId}")

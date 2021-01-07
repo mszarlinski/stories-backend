@@ -2,8 +2,6 @@ package com.github.mszarlinski.stories.reading.domain;
 
 import com.github.mszarlinski.stories.account.AccountModuleFacade;
 import com.github.mszarlinski.stories.account.UserDto;
-import com.github.mszarlinski.stories.reading.domain.homepage.ReaderHomePageReadModel;
-import com.github.mszarlinski.stories.reading.domain.storyview.StoryViewReadModel;
 import com.github.mszarlinski.stories.sharedkernel.StoryId;
 import com.github.mszarlinski.stories.test.builder.TestStory;
 import org.junit.jupiter.api.Test;
@@ -22,7 +20,6 @@ class ReadingUnitTests {
     AccountModuleFacade accountModuleFacadeMock = mock(AccountModuleFacade.class);
 
     StoryReaderFacade facade = new StoryReaderFacade(
-            new ReaderHomePageReadModel(new InMemoryHomePageStoryRepository()),
             new StoryViewReadModel(new InMemoryStoryViewRepository()),
             accountModuleFacadeMock);
 
