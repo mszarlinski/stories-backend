@@ -7,3 +7,6 @@ server:
     context-path: /api
 cors:
   origin: http://localhost:3000
+async:
+  threads: 10
+  queue-size: 10

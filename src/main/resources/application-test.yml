@@ -1,3 +1,6 @@
 spring:
   main:
     allow-bean-definition-overriding: true
+async:
+  threads: 1
+  queue-size: 1
