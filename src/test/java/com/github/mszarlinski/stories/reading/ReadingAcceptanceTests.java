@@ -9,6 +9,7 @@ import com.github.mszarlinski.stories.test.builder.TestStory;
 import org.junit.jupiter.api.Test;
 
 import static com.github.mszarlinski.stories.account.AccountModuleFacade.FAKE_USER;
+import static com.github.mszarlinski.stories.test.SecurityUtils.authorized;
 import static com.github.mszarlinski.stories.test.builder.TestStory.story;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,7 +27,8 @@ class ReadingAcceptanceTests extends AcceptanceTests {
 
         await().atMost(1, SECONDS).untilAsserted(() -> {
             // when
-            var storiesResponse = client.getForEntity("/home/stories", GetStoriesForHomePageResponse.class);
+            var storiesResponse = client
+                    .getForEntity("/public/home/stories", GetStoriesForHomePageResponse.class);
 
             // then
             assertThat(storiesResponse.getStatusCode()).isEqualTo(OK);
@@ -35,13 +37,14 @@ class ReadingAcceptanceTests extends AcceptanceTests {
                     .hasNoNullFieldsOrProperties()
                     .hasFieldOrPropertyWithValue("id", storyId)
                     .hasFieldOrPropertyWithValue("title", story.getTitle())
-                    .hasFieldOrPropertyWithValue("author", String.format("%s %s", FAKE_USER.getName(), FAKE_USER.getLastName()))
+                    .hasFieldOrPropertyWithValue("author", String.format("%s %s", FAKE_USER.getName(), FAKE_USER.getLastName())) //FIXME
                     .hasFieldOrPropertyWithValue("publishedDate", clock.instant());
         });
     }
 
     private String storyIsPublished(TestStory story) {
-        return client.postForObject("/stories", new PublishNewStoryRequest(story.getTitle(), story.getContent()), PublishNewStoryResponse.class)
+        fakeJwtDecoder.mockUser();
+        return client.postForObject("/stories", authorized(new PublishNewStoryRequest(story.getTitle(), story.getContent())), PublishNewStoryResponse.class)
                 .getStoryId();
     }
 
@@ -52,7 +55,7 @@ class ReadingAcceptanceTests extends AcceptanceTests {
         var storyId = storyIsPublished(story);
         await().atMost(1, SECONDS).untilAsserted(() -> {
             // when
-            var storyResponse = client.getForEntity("/stories/{storyId}", StoryViewResponse.class, storyId);
+            var storyResponse = client.getForEntity("/public/stories/{storyId}", StoryViewResponse.class, storyId);
 
             // then
             assertThat(storyResponse.getStatusCode()).isEqualTo(OK);
@@ -70,7 +73,7 @@ class ReadingAcceptanceTests extends AcceptanceTests {
         // given
         var notExistingStoryId = "1234";
         // when
-        var storyResponse = client.getForEntity("/stories/${storyId}", GetStoriesForHomePageResponse.class, notExistingStoryId);
+        var storyResponse = client.getForEntity("/public/stories/${storyId}", GetStoriesForHomePageResponse.class, notExistingStoryId);
 
         // then
         assertThat(storyResponse.getStatusCode()).isEqualTo(NOT_FOUND);

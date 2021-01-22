@@ -18,7 +18,7 @@ class ReaderController {
         this.storyReaderFacade = storyReaderFacade;
     }
 
-    @GetMapping("/home/stories")
+    @GetMapping("/public/home/stories")
     GetStoriesForHomePageResponse getStoriesForHomePageResponse() {
         return new GetStoriesForHomePageResponse(
                 storyReaderFacade.getStoriesForHomePage()
@@ -27,7 +27,7 @@ class ReaderController {
                         .collect(toList()));
     }
 
-    @GetMapping("/stories/{storyId}")
+    @GetMapping("/public/stories/{storyId}")
     ResponseEntity<StoryViewResponse> getStoryById(@PathVariable String storyId) {
         return ResponseEntity.of(storyReaderFacade.findStoryById(StoryId.of(storyId))
                 .map(s -> new StoryViewResponse(s.getTitle(), s.getContent(), s.getAuthor(), s.getPublishedDate())));

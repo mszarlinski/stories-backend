@@ -23,3 +23,4 @@ Live demo: http://stories-frontend.s3-website.eu-west-2.amazonaws.com
 
 - [CQRS] https://github.com/ddd-by-examples/all-things-cqrs
 - [AWS Beanstalk] https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-webserver.html
+- [Google Social Login] https://developers.google.com/identity/sign-in/web/backend-auth

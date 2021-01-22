@@ -1,9 +1,10 @@
 package com.github.mszarlinski.stories.publishing.ui;
 
-import com.github.mszarlinski.stories.publishing.FakeAuthor;
 import com.github.mszarlinski.stories.publishing.application.StoryPublisherFacade;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 import static java.util.stream.Collectors.toList;
 
@@ -17,9 +18,9 @@ class MyStoriesController {
     }
 
     @GetMapping("/publisher/stories")
-    GetStoriesForPublisherResponse getStoriesForPublisher() {
+    GetStoriesForPublisherResponse getStoriesForPublisher(Principal principal) {
         return new GetStoriesForPublisherResponse(
-                storyPublisherFacade.getStories(FakeAuthor.ID)
+                storyPublisherFacade.getStories(principal.getName())
                         .stream()
                         .map(s -> new PublishedStoryResponse(
                                 s.getId().value(),

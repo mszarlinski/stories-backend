@@ -1,5 +1,6 @@
 package com.github.mszarlinski.stories;
 
+import com.github.mszarlinski.stories.test.FakeJwtDecoder;
 import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,8 +42,12 @@ public class AcceptanceTests {
     @Autowired
     protected Clock clock;
 
+    @Autowired
+    protected FakeJwtDecoder fakeJwtDecoder;
+
     @AfterEach
     void cleanup() {
         mongo.getDb().drop();
+        fakeJwtDecoder.clear();
     }
 }
