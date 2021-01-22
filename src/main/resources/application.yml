@@ -21,4 +21,4 @@ async:
 
 logging:
   level:
-    ROOT: warn
+    ROOT: info

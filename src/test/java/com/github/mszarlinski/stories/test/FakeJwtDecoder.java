@@ -18,7 +18,7 @@ public class FakeJwtDecoder implements JwtDecoder {
     }
 
     public void mockUser() {
-        mockUser(SecurityUtils.MOCK_TOKEN, SecurityUtils.MOCK_USER);
+        mockUser(SecurityUtils.MOCK_USER, SecurityUtils.MOCK_TOKEN);
     }
 
     @Override
@@ -26,13 +26,12 @@ public class FakeJwtDecoder implements JwtDecoder {
         String user = Optional.ofNullable(tokenToUser.get(token))
                 .orElseThrow(() -> new IllegalStateException("JWT not initialized"));
 
-        return new Jwt(
-                "fake",
-                Instant.now(),
-                Instant.now().plusSeconds(10000),
-                Map.of("kid", "eea1b1f42807a8cc136a03a3c16d29db8296daf0", "typ", "JWT", "alg", "RS256"),
-                Map.of("sub", user, "iss", "accounts.google.com")
-        );
+        return Jwt.withTokenValue("fake")
+                .issuedAt(Instant.now())
+                .expiresAt(Instant.now().plusSeconds(10000))
+                .subject(user)
+                .header("typ", "JWT")
+                .build();
     }
 
     public void clear() {

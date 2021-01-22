@@ -1,10 +1,10 @@
 package com.github.mszarlinski.stories.publishing.ui;
 
 import com.github.mszarlinski.stories.publishing.application.StoryPublisherFacade;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.Principal;
 
 import static java.util.stream.Collectors.toList;
 
@@ -18,9 +18,9 @@ class MyStoriesController {
     }
 
     @GetMapping("/publisher/stories")
-    GetStoriesForPublisherResponse getStoriesForPublisher(Principal principal) {
+    GetStoriesForPublisherResponse getStoriesForPublisher(@AuthenticationPrincipal Jwt jwt) {
         return new GetStoriesForPublisherResponse(
-                storyPublisherFacade.getStories(principal.getName())
+                storyPublisherFacade.getStories(jwt.getSubject())
                         .stream()
                         .map(s -> new PublishedStoryResponse(
                                 s.getId().value(),

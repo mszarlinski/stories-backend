@@ -1,9 +1,9 @@
 package com.github.mszarlinski.stories.publishing.ui;
 
 import com.github.mszarlinski.stories.publishing.application.StoryPublisherFacade;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -20,8 +20,8 @@ class PublisherController {
     @PostMapping("/stories")
     PublishNewStoryResponse publishNewStory(
             @RequestBody PublishNewStoryRequest request,
-            Principal principal) {
-        var storyId = storyPublisherFacade.publish(request.getTitle(), request.getContent(), principal.getName());
+            @AuthenticationPrincipal Jwt jwt) {
+        var storyId = storyPublisherFacade.publish(request.getTitle(), request.getContent(), jwt.getSubject());
         return new PublishNewStoryResponse(storyId.value());
     }
 
