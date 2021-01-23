@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
 
 import static com.github.mszarlinski.stories.test.SecurityUtils.authorized;
+import static com.github.mszarlinski.stories.test.builder.TestUser.user;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -45,8 +46,8 @@ class PublishingAcceptanceTests extends AcceptanceTests {
         String title = "Some title";
         String content = "Some content";
 
-        fakeJwtDecoder.mockUser("user1", "token1"); //TODO: DSL?
-        fakeJwtDecoder.mockUser("user2", "token2");
+        fakeJwtDecoder.mockUser(user().build(), "token1"); //TODO: DSL?
+        fakeJwtDecoder.mockUser(user().build(), "token2");
 
         // when
         var storiesResponse = client.postForEntity("/stories", authorized(new PublishNewStoryRequest(title, content), "token1"), Void.class);

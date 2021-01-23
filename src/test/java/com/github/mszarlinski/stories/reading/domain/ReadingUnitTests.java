@@ -44,7 +44,7 @@ class ReadingUnitTests {
 
 
     private void thereIsAnAuthor(UserDto author, String authorId) {
-        when(accountModuleFacadeMock.getUserById(authorId)).thenReturn(Optional.of(author));
+        when(accountModuleFacadeMock.findAccountById(authorId)).thenReturn(Optional.of(author));
     }
 
     private void thereIsAStory(TestStory story) {

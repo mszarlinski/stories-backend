@@ -1,5 +1,7 @@
 package com.github.mszarlinski.stories.account;
 
+import com.github.mszarlinski.stories.account.domain.Account;
+
 public class UserDto {
     private final String name;
     private final String lastName;
@@ -15,5 +17,9 @@ public class UserDto {
 
     public String getLastName() {
         return lastName;
+    }
+
+    static UserDto fromAccount(Account account) {
+        return new UserDto(account.getName(), account.getLastName());
     }
 }

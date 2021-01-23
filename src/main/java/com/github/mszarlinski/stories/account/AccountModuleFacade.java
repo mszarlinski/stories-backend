@@ -1,15 +1,36 @@
 package com.github.mszarlinski.stories.account;
 
+import com.github.mszarlinski.stories.account.domain.Account;
+import com.github.mszarlinski.stories.account.domain.AccountCreator;
+import com.github.mszarlinski.stories.account.domain.AccountRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
 public class AccountModuleFacade {
-    public static final UserDto FAKE_USER = new UserDto("Jan", "Kowalski");
 
-    public Optional<UserDto> getUserById(String userId) {
-        //FIXME
-        return Optional.of(FAKE_USER);
+    private final AccountRepository accountRepository;
+    private final AccountCreator accountCreator;
+
+    AccountModuleFacade(AccountRepository accountRepository, AccountCreator accountCreator) {
+        this.accountRepository = accountRepository;
+        this.accountCreator = accountCreator;
+    }
+
+    public Optional<UserDto> findAccountById(String accountId) {
+        return accountRepository.findById(accountId)
+                .map(UserDto::fromAccount);
+    }
+
+    public Optional<UserDto> findAccountByEmail(String email) {
+        return accountRepository.findByEmail(email)
+                .map(UserDto::fromAccount);
+    }
+
+    public UserDto findOrCreate(FindOrCreateAccountCommand findOrCreateAccountCommand) {
+        Account acc = accountRepository.findByEmail(findOrCreateAccountCommand.getEmail())
+                .orElseGet(() -> accountCreator.createNewAccount(findOrCreateAccountCommand));
+        return new UserDto(acc.getName(), acc.getLastName());
     }
 }
