@@ -27,12 +27,11 @@ class SignInController {
                 new FindOrCreateAccountCommand(
                         jwt.getClaimAsString("given_name"),
                         jwt.getClaimAsString("family_name"),
-                        jwt.getClaimAsString("email")
-                        //TODO: "picture"
-                )
+                        jwt.getClaimAsString("email"),
+                        jwt.getClaimAsString("picture"))
         );
 
-        return new SignInResponse(user.getName(), user.getLastName());
+        return new SignInResponse(user.getName(), user.getLastName(), user.getPictureUrl());
     }
 }
 

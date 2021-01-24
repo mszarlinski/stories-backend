@@ -11,6 +11,7 @@ import java.util.Optional;
 import static com.github.mszarlinski.stories.test.SecurityUtils.authorized;
 import static com.github.mszarlinski.stories.test.builder.TestUser.user;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 class AccountAcceptanceTests extends AcceptanceTests {
 
@@ -29,7 +30,8 @@ class AccountAcceptanceTests extends AcceptanceTests {
         // then
         assertThat(signInResponse)
                 .hasFieldOrPropertyWithValue("name", user.getName())
-                .hasFieldOrPropertyWithValue("lastName", user.getLastName());
+                .hasFieldOrPropertyWithValue("lastName", user.getLastName())
+                .hasFieldOrPropertyWithValue("pictureUrl", user.getPictureUrl());
 
         // when
         Optional<UserDto> savedUser = accountModuleFacade.findAccountByEmail(user.getEmail());
@@ -39,5 +41,14 @@ class AccountAcceptanceTests extends AcceptanceTests {
             assertThat(u.getName()).isEqualTo(user.getName());
             assertThat(u.getLastName()).isEqualTo(user.getLastName());
         });
+    }
+
+    @Test
+    void shouldReturn401WhenTokenIsNotProvided() {
+        // when
+        var signInResponse = client.postForEntity("/signin", null, SignInResponse.class);
+
+        // then
+        assertThat(signInResponse.getStatusCode()).isEqualTo(UNAUTHORIZED);
     }
 }

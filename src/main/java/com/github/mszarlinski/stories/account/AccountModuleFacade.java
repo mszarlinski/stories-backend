@@ -29,8 +29,8 @@ public class AccountModuleFacade {
     }
 
     public UserDto findOrCreate(FindOrCreateAccountCommand findOrCreateAccountCommand) {
-        Account acc = accountRepository.findByEmail(findOrCreateAccountCommand.getEmail())
+        Account account = accountRepository.findByEmail(findOrCreateAccountCommand.getEmail())
                 .orElseGet(() -> accountCreator.createNewAccount(findOrCreateAccountCommand));
-        return new UserDto(acc.getName(), acc.getLastName());
+        return UserDto.fromAccount(account);
     }
 }

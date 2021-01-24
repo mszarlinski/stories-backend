@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+//TODO: integration tests with WireMock mocking authorization server
 public class FakeJwtDecoder implements JwtDecoder {
 
     private final Map<String, TestUser> tokenToUser = new HashMap<>();
@@ -32,6 +33,7 @@ public class FakeJwtDecoder implements JwtDecoder {
                 .claim("given_name", user.getName())
                 .claim("family_name", user.getLastName())
                 .claim("email", user.getEmail())
+                .claim("picture", user.getPictureUrl())
                 .header("typ", "JWT")
                 .issuedAt(Instant.now())
                 .expiresAt(Instant.now().plusSeconds(10000))
