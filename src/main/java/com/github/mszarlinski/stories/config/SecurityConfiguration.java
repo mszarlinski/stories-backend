@@ -1,6 +1,6 @@
 package com.github.mszarlinski.stories.config;
 
-import com.github.mszarlinski.stories.account.AccountModuleFacade;
+import com.github.mszarlinski.stories.auth.AuthenticationModuleFacade;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -10,10 +10,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    final AccountModuleFacade accountModuleFacade;
+    final AuthenticationModuleFacade authenticationModuleFacade;
 
-    SecurityConfiguration(AccountModuleFacade accountModuleFacade) {
-        this.accountModuleFacade = accountModuleFacade;
+    SecurityConfiguration(AuthenticationModuleFacade authenticationModuleFacade) {
+        this.authenticationModuleFacade = authenticationModuleFacade;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.github.mszarlinski.stories.test.builder;
 
-import com.github.mszarlinski.stories.account.UserDto;
+import com.github.mszarlinski.stories.auth.UserDto;
 
 import java.util.UUID;
 

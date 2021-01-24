@@ -1,6 +1,6 @@
-package com.github.mszarlinski.stories.account;
+package com.github.mszarlinski.stories.auth;
 
-import com.github.mszarlinski.stories.account.domain.Account;
+import com.github.mszarlinski.stories.auth.domain.User;
 
 public class UserDto {
     private final String name;
@@ -21,8 +21,8 @@ public class UserDto {
         return lastName;
     }
 
-    static UserDto fromAccount(Account account) {
-        return new UserDto(account.getName(), account.getLastName(), account.getPictureUrl());
+    static UserDto fromAccount(User user) {
+        return new UserDto(user.getName(), user.getLastName(), user.getPictureUrl());
     }
 
     public String getPictureUrl() {

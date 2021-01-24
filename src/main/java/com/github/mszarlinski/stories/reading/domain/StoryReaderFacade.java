@@ -1,6 +1,6 @@
 package com.github.mszarlinski.stories.reading.domain;
 
-import com.github.mszarlinski.stories.account.AccountModuleFacade;
+import com.github.mszarlinski.stories.auth.AuthenticationModuleFacade;
 import com.github.mszarlinski.stories.sharedkernel.StoryId;
 import org.springframework.stereotype.Component;
 
@@ -12,12 +12,12 @@ import java.util.Optional;
 public class StoryReaderFacade {
 
     private final StoryViewReadModel storyViewReadModel;
-    private final AccountModuleFacade accountModuleFacade;
+    private final AuthenticationModuleFacade authenticationModuleFacade;
 
     public StoryReaderFacade(StoryViewReadModel storyViewReadModel,
-                             AccountModuleFacade accountModuleFacade) {
+                             AuthenticationModuleFacade authenticationModuleFacade) {
         this.storyViewReadModel = storyViewReadModel;
-        this.accountModuleFacade = accountModuleFacade;
+        this.authenticationModuleFacade = authenticationModuleFacade;
     }
 
     public List<StoryView> getStoriesForHomePage() {
@@ -25,7 +25,7 @@ public class StoryReaderFacade {
     }
 
     public void saveStoryInReadModels(StoryId storyId, String title, String content, String authorId, Instant publishedDate) {
-        var author = accountModuleFacade.findAccountById(authorId).orElseThrow();
+        var author = authenticationModuleFacade.findUserById(authorId).orElseThrow();
         storyViewReadModel.save(storyId, title, content, author, publishedDate);
     }
 

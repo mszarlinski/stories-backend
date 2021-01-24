@@ -1,9 +1,9 @@
 package com.github.mszarlinski.stories.reading;
 
 import com.github.mszarlinski.stories.AcceptanceTests;
-import com.github.mszarlinski.stories.account.AccountModuleFacade;
-import com.github.mszarlinski.stories.account.FindOrCreateAccountCommand;
-import com.github.mszarlinski.stories.account.UserDto;
+import com.github.mszarlinski.stories.auth.AuthenticationModuleFacade;
+import com.github.mszarlinski.stories.auth.FindOrCreateUserCommand;
+import com.github.mszarlinski.stories.auth.UserDto;
 import com.github.mszarlinski.stories.publishing.ui.PublishNewStoryRequest;
 import com.github.mszarlinski.stories.publishing.ui.PublishNewStoryResponse;
 import com.github.mszarlinski.stories.reading.ui.GetStoriesForHomePageResponse;
@@ -26,7 +26,7 @@ import static org.springframework.http.HttpStatus.OK;
 class ReadingAcceptanceTests extends AcceptanceTests {
 
     @Autowired
-    AccountModuleFacade accountModuleFacade;
+    AuthenticationModuleFacade authenticationModuleFacade;
 
     @Test
     void shouldReturnStoriesForHomePage() {
@@ -56,7 +56,7 @@ class ReadingAcceptanceTests extends AcceptanceTests {
     }
 
     private UserDto thereIsAnAuthor(TestUser author) {
-        return accountModuleFacade.findOrCreate(new FindOrCreateAccountCommand(author.getId(), author.getName(), author.getLastName(), author.getEmail(), author.getPictureUrl()));
+        return authenticationModuleFacade.findOrCreate(new FindOrCreateUserCommand(author.getId(), author.getName(), author.getLastName(), author.getEmail(), author.getPictureUrl()));
     }
 
     private String storyIsPublished(TestStory story) {

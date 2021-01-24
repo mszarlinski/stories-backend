@@ -1,7 +1,7 @@
-package com.github.mszarlinski.stories.account;
+package com.github.mszarlinski.stories.auth;
 
 import com.github.mszarlinski.stories.AcceptanceTests;
-import com.github.mszarlinski.stories.account.ui.SignInResponse;
+import com.github.mszarlinski.stories.auth.ui.SignInResponse;
 import com.github.mszarlinski.stories.test.SecurityUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +13,10 @@ import static com.github.mszarlinski.stories.test.builder.TestUser.user;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
-class AccountAcceptanceTests extends AcceptanceTests {
+class AuthenticationAcceptanceTests extends AcceptanceTests {
 
     @Autowired
-    AccountModuleFacade accountModuleFacade;
+    AuthenticationModuleFacade authenticationModuleFacade;
 
     @Test
     void shouldCreateAccountIfNotExistOnSignIn() {
@@ -34,7 +34,7 @@ class AccountAcceptanceTests extends AcceptanceTests {
                 .hasFieldOrPropertyWithValue("pictureUrl", user.getPictureUrl());
 
         // when
-        Optional<UserDto> savedUser = accountModuleFacade.findAccountById(user.getId());
+        Optional<UserDto> savedUser = authenticationModuleFacade.findUserById(user.getId());
 
         // then
         assertThat(savedUser).hasValueSatisfying(u -> {

@@ -1,8 +1,7 @@
-package com.github.mszarlinski.stories.account.ui;
+package com.github.mszarlinski.stories.auth.ui;
 
-import com.github.mszarlinski.stories.account.AccountModuleFacade;
-import com.github.mszarlinski.stories.account.FindOrCreateAccountCommand;
-import com.github.mszarlinski.stories.account.UserDto;
+import com.github.mszarlinski.stories.auth.AuthenticationModuleFacade;
+import com.github.mszarlinski.stories.auth.FindOrCreateUserCommand;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 class SignInController {
 
-    private final AccountModuleFacade accountModuleFacade;
+    private final AuthenticationModuleFacade authenticationModuleFacade;
 
-    SignInController(AccountModuleFacade accountModuleFacade) {
-        this.accountModuleFacade = accountModuleFacade;
+    SignInController(AuthenticationModuleFacade authenticationModuleFacade) {
+        this.authenticationModuleFacade = authenticationModuleFacade;
     }
 
     /**
@@ -23,8 +22,8 @@ class SignInController {
      */
     @PostMapping("/signin")
     SignInResponse signIn(@AuthenticationPrincipal Jwt jwt) {
-        UserDto user = accountModuleFacade.findOrCreate(
-                new FindOrCreateAccountCommand(
+        var user = authenticationModuleFacade.findOrCreate(
+                new FindOrCreateUserCommand(
                         jwt.getSubject(), // This relies heavily on external ID of user account created in Google
                         jwt.getClaimAsString("given_name"),
                         jwt.getClaimAsString("family_name"),

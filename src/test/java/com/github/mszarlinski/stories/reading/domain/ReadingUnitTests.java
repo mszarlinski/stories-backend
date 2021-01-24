@@ -1,6 +1,6 @@
 package com.github.mszarlinski.stories.reading.domain;
 
-import com.github.mszarlinski.stories.account.AccountModuleFacade;
+import com.github.mszarlinski.stories.auth.AuthenticationModuleFacade;
 import com.github.mszarlinski.stories.sharedkernel.StoryId;
 import com.github.mszarlinski.stories.test.builder.TestStory;
 import com.github.mszarlinski.stories.test.builder.TestUser;
@@ -18,11 +18,11 @@ class ReadingUnitTests {
 
     static TestUser AUTHOR = user().build();
 
-    AccountModuleFacade accountModuleFacadeMock = mock(AccountModuleFacade.class);
+    AuthenticationModuleFacade authenticationModuleFacadeMock = mock(AuthenticationModuleFacade.class);
 
     StoryReaderFacade facade = new StoryReaderFacade(
             new StoryViewReadModel(new InMemoryStoryViewRepository()),
-            accountModuleFacadeMock);
+            authenticationModuleFacadeMock);
 
     @Test
     void shouldReturnStoriesForHomePage() {
@@ -46,7 +46,7 @@ class ReadingUnitTests {
     }
 
     private void thereIsAnAuthor(TestUser author) {
-        when(accountModuleFacadeMock.findAccountById(author.getId())).thenReturn(Optional.of(author.toUserDto()));
+        when(authenticationModuleFacadeMock.findUserById(author.getId())).thenReturn(Optional.of(author.toUserDto()));
     }
 
     private void thereIsAStory(TestStory story) {

@@ -1,10 +1,10 @@
-package com.github.mszarlinski.stories.account.domain;
+package com.github.mszarlinski.stories.auth.domain;
 
 import org.springframework.data.annotation.Id;
 
 import java.time.Instant;
 
-public class Account {
+public class User {
     @Id
     private final String id;
     private final String name;
@@ -13,7 +13,7 @@ public class Account {
     private final String pictureUrl;
     private final Instant registrationDate;
 
-    public Account(String id, String name, String lastName, String email, String pictureUrl, Instant registrationDate) {
+    public User(String id, String name, String lastName, String email, String pictureUrl, Instant registrationDate) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;

@@ -1,4 +1,4 @@
-package com.github.mszarlinski.stories.account.ui;
+package com.github.mszarlinski.stories.auth.ui;
 
 public class SignInResponse {
     private final String name;

@@ -9,11 +9,12 @@ Live demo: http://stories-frontend.s3-website.eu-west-2.amazonaws.com
 - [x] Publishing stories
 - [x] Viewing story
 - [x] Homepage with stories
+- [x] Authentication & authorization with Google
+- [ ] Searching for stories
+- [ ] Linking stories
 - [ ] Pretty urls for stories
 - [ ] Updating and deleting published stories
 - [ ] Updating user name and lastname
-- [ ] Searching for stories
-- [ ] Authentication & authorization with Google/Facebook
 - [ ] Bookmarks
 - [ ] Following authors
 - [ ] Following topics
@@ -24,3 +25,4 @@ Live demo: http://stories-frontend.s3-website.eu-west-2.amazonaws.com
 - [CQRS] https://github.com/ddd-by-examples/all-things-cqrs
 - [AWS Beanstalk] https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-webserver.html
 - [Google Social Login] https://developers.google.com/identity/sign-in/web/backend-auth
+- [Spring Security] https://www.baeldung.com/spring-security-oauth2-enable-resource-server-vs-enable-oauth2-sso
