@@ -1,6 +1,6 @@
 package com.github.mszarlinski.stories.reading.domain;
 
-import com.github.mszarlinski.stories.account.UserDto;
+import com.github.mszarlinski.stories.auth.UserDto;
 import com.github.mszarlinski.stories.sharedkernel.StoryId;
 import org.springframework.stereotype.Component;
 

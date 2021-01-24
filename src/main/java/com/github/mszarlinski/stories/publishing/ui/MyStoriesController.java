@@ -1,7 +1,8 @@
 package com.github.mszarlinski.stories.publishing.ui;
 
-import com.github.mszarlinski.stories.publishing.FakeAuthor;
 import com.github.mszarlinski.stories.publishing.application.StoryPublisherFacade;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,9 +18,9 @@ class MyStoriesController {
     }
 
     @GetMapping("/publisher/stories")
-    GetStoriesForPublisherResponse getStoriesForPublisher() {
+    GetStoriesForPublisherResponse getStoriesForPublisher(@AuthenticationPrincipal Jwt jwt) {
         return new GetStoriesForPublisherResponse(
-                storyPublisherFacade.getStories(FakeAuthor.ID)
+                storyPublisherFacade.getStories(jwt.getSubject())
                         .stream()
                         .map(s -> new PublishedStoryResponse(
                                 s.getId().value(),

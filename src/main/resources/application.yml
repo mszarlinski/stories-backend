@@ -2,11 +2,23 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost/storiesdb
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+
 server:
   servlet:
     context-path: /api
+
 cors:
   origin: http://localhost:3000
+
 async:
   threads: 10
   queue-size: 10
+
+logging:
+  level:
+    ROOT: info
