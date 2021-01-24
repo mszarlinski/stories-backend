@@ -1,10 +1,8 @@
 package com.github.mszarlinski.stories.account.domain;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
 
 import java.time.Instant;
-import java.util.UUID;
 
 public class Account {
     @Id
@@ -15,12 +13,7 @@ public class Account {
     private final String pictureUrl;
     private final Instant registrationDate;
 
-    public Account(String name, String lastName, String email, String pictureUrl, Instant registrationDate) {
-        this(UUID.randomUUID().toString(), name, lastName, email, pictureUrl, registrationDate);
-    }
-
-    @PersistenceConstructor
-    private Account(String id, String name, String lastName, String email, String pictureUrl, Instant registrationDate) {
+    public Account(String id, String name, String lastName, String email, String pictureUrl, Instant registrationDate) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;

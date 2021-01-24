@@ -39,6 +39,10 @@ public class TestUser {
         return id;
     }
 
+    public String getFullName() {
+        return String.format("%s %s", name, lastName);
+    }
+
     public UserDto toUserDto() {
         return new UserDto(name, lastName, pictureUrl);
     }

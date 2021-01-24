@@ -34,7 +34,7 @@ class AccountAcceptanceTests extends AcceptanceTests {
                 .hasFieldOrPropertyWithValue("pictureUrl", user.getPictureUrl());
 
         // when
-        Optional<UserDto> savedUser = accountModuleFacade.findAccountByEmail(user.getEmail());
+        Optional<UserDto> savedUser = accountModuleFacade.findAccountById(user.getId());
 
         // then
         assertThat(savedUser).hasValueSatisfying(u -> {

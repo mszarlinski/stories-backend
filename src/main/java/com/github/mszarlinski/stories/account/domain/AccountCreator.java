@@ -16,7 +16,7 @@ public class AccountCreator {
     }
 
     public Account createNewAccount(FindOrCreateAccountCommand findOrCreateAccountCommand) {
-        return accountRepository.save(new Account(findOrCreateAccountCommand.getName(), findOrCreateAccountCommand.getLastName(),
+        return accountRepository.save(new Account(findOrCreateAccountCommand.getUserId(), findOrCreateAccountCommand.getName(), findOrCreateAccountCommand.getLastName(),
                 findOrCreateAccountCommand.getEmail(), findOrCreateAccountCommand.getPictureUrl(), clock.instant()));
     }
 }

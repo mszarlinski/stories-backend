@@ -23,13 +23,8 @@ public class AccountModuleFacade {
                 .map(UserDto::fromAccount);
     }
 
-    public Optional<UserDto> findAccountByEmail(String email) {
-        return accountRepository.findByEmail(email)
-                .map(UserDto::fromAccount);
-    }
-
     public UserDto findOrCreate(FindOrCreateAccountCommand findOrCreateAccountCommand) {
-        Account account = accountRepository.findByEmail(findOrCreateAccountCommand.getEmail())
+        Account account = accountRepository.findById(findOrCreateAccountCommand.getUserId())
                 .orElseGet(() -> accountCreator.createNewAccount(findOrCreateAccountCommand));
         return UserDto.fromAccount(account);
     }

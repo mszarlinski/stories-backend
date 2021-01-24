@@ -29,7 +29,7 @@ public class FakeJwtDecoder implements JwtDecoder {
                 .orElseThrow(() -> new IllegalStateException("JWT not initialized"));
 
         return Jwt.withTokenValue("fake")
-                .subject(user.getEmail())
+                .subject(user.getId()) //TODO: is this a correct assumption?
                 .claim("given_name", user.getName())
                 .claim("family_name", user.getLastName())
                 .claim("email", user.getEmail())

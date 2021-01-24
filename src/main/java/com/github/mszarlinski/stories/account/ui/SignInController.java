@@ -22,9 +22,10 @@ class SignInController {
      * @see org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider
      */
     @PostMapping("/signin")
-    SignInResponse signIn(@AuthenticationPrincipal Jwt jwt) { //TODO: custom UserDetails class
+    SignInResponse signIn(@AuthenticationPrincipal Jwt jwt) {
         UserDto user = accountModuleFacade.findOrCreate(
                 new FindOrCreateAccountCommand(
+                        jwt.getSubject(), // This relies heavily on external ID of user account created in Google
                         jwt.getClaimAsString("given_name"),
                         jwt.getClaimAsString("family_name"),
                         jwt.getClaimAsString("email"),
