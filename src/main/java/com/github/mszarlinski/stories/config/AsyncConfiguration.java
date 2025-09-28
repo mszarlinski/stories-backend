@@ -1,7 +1,6 @@
 package com.github.mszarlinski.stories.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
@@ -33,7 +32,6 @@ class AsyncConfiguration extends AsyncConfigurerSupport {
     }
 }
 
-@ConstructorBinding
 @ConfigurationProperties("async")
 class AsyncProperties {
     private final int threads;

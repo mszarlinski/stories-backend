@@ -3,25 +3,25 @@ package com.github.mszarlinski.stories.publishing.domain;
 import com.github.mszarlinski.stories.publishing.application.StoryDto;
 import com.github.mszarlinski.stories.sharedkernel.StoryId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.annotation.PersistenceCreator;
 
 import java.time.Instant;
 import java.util.UUID;
 
 public class PublishedStory {
     @Id
-    private final String id;
-    private final String title;
-    private final String authorId;
-    private final String content;
-    private final Instant publishedDate;
+    private String id;
+    private String title;
+    private String authorId;
+    private String content;
+    private Instant publishedDate;
 
+    @PersistenceCreator
     public PublishedStory(String title, String content, String authorId, Instant publishedDate) {
         this(UUID.randomUUID().toString(), title, content, authorId, publishedDate);
     }
 
-    @PersistenceConstructor
-    private PublishedStory(String id, String title, String content, String authorId, Instant publishedDate) {
+    public PublishedStory(String id, String title, String content, String authorId, Instant publishedDate) {
         this.id = id;
         this.title = title;
         this.authorId = authorId;
