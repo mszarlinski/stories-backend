@@ -38,3 +38,4 @@ out/
 
 private/
 application-aws.yml
+/.claude/

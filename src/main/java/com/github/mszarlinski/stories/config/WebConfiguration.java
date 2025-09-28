@@ -1,7 +1,6 @@
 package com.github.mszarlinski.stories.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +28,6 @@ class WebConfiguration {
     }
 }
 
-@ConstructorBinding
 @ConfigurationProperties("cors")
 class CorsProperties {
     private final String origin;

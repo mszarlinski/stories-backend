@@ -4,8 +4,6 @@ import com.github.mszarlinski.stories.publishing.domain.PublishedStory;
 import com.github.mszarlinski.stories.publishing.domain.PublishedStoryRepository;
 import com.github.mszarlinski.stories.sharedkernel.StoryId;
 import com.github.mszarlinski.stories.sharedkernel.event.EventsPublisher;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
 import java.time.Clock;
@@ -19,9 +17,6 @@ public class StoryPublisherFacade {
     private final Clock clock;
     private final EventsPublisher eventsPublisher;
 
-    @Autowired
-    MongoTemplate mongo;
-
     public StoryPublisherFacade(PublishedStoryRepository publishedStoryRepository, Clock clock, EventsPublisher eventsPublisher) {
         this.publishedStoryRepository = publishedStoryRepository;
         this.clock = clock;
@@ -29,6 +24,8 @@ public class StoryPublisherFacade {
     }
 
     public StoryId publish(String title, String content, String authorId) {
+        validateInput(title, content, authorId);
+
         var story = new PublishedStory(
                 title,
                 content,
@@ -40,10 +37,22 @@ public class StoryPublisherFacade {
         return savedStory.getId();
     }
 
+    private void validateInput(String title, String content, String authorId) {
+        if (title == null || title.trim().isEmpty()) {
+            throw new com.github.mszarlinski.stories.publishing.domain.EmptyTitleException();
+        }
+        if (content == null || content.trim().isEmpty()) {
+            throw new com.github.mszarlinski.stories.publishing.domain.EmptyContentException();
+        }
+        if (authorId == null || authorId.trim().isEmpty()) {
+            throw new com.github.mszarlinski.stories.publishing.domain.InvalidAuthorException();
+        }
+    }
+
     public List<StoryDto> getStories(String authorId) {
         return publishedStoryRepository.findByAuthorId(authorId)
                 .stream()
                 .map(PublishedStory::toDto)
-                .collect(toUnmodifiableList());
+                .toList();
     }
 }

@@ -1,14 +1,15 @@
 package com.github.mszarlinski.stories.config;
 
 import com.github.mszarlinski.stories.auth.AuthenticationModuleFacade;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
 @Configuration
-class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+class SecurityConfiguration {
 
     final AuthenticationModuleFacade authenticationModuleFacade;
 
@@ -16,17 +17,15 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.authenticationModuleFacade = authenticationModuleFacade;
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/public/**")
-                .permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .cors()
-                .and()
-                .csrf().disable()
-                .oauth2ResourceServer().jwt();
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .authorizeHttpRequests(authz -> authz
+                        .requestMatchers("/public/**").permitAll()
+                        .anyRequest().authenticated())
+                .cors(cors -> {})
+                .csrf(csrf -> csrf.disable())
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> {}))
+                .build();
     }
 }
